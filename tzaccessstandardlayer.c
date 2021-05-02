@@ -129,7 +129,7 @@ void TZAccessStandardLayerSend(uint8_t* data, int dataLen, UtzStandardHeader* st
         return;
     }
     (void)UtzStandardHeaderToBytes(standardHeader, frame, UTZ_NLV1_HEAD_LEN);
-    memcpy(frame + UTZ_NLV1_HEAD_LEN, data, (uint64_t)dataLen);
+    memcpy(frame + UTZ_NLV1_HEAD_LEN, data, (size_t)dataLen);
     sendFunc(frame, frameSize, dstIP, dstPort);
     TZFree(frame);
 }

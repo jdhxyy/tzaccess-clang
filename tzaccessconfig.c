@@ -61,8 +61,7 @@ char* TZAccessGetLocalPwd(void) {
     return localPwd;
 }
 
-// TZAccessConfigCoreParam 配置核心网参数
-// ip是4字节数组
+// TZAccessConfigCoreParam 配置核心网参数.ip是4字节数组
 void TZAccessConfigCoreParam(uint64_t ia, uint8_t* ip, uint16_t port) {
     coreIA = ia;
     memcpy(coreIP, ip, 4);

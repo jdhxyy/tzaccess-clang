@@ -132,8 +132,8 @@ static void sendConnFrame(void) {
         LE(TZACCESS_TAG, "send conn frame failed!malloc failed!");
         goto EXIT;
     }
-    memcpy(payload, securityHeaderBytes->buf, (uint64_t)securityHeaderBytes->len);
-    memcpy(payload + securityHeaderBytes->len, flpFrame->buf, (uint64_t)flpFrame->len);
+    memcpy(payload, securityHeaderBytes->buf, (size_t)securityHeaderBytes->len);
+    memcpy(payload + securityHeaderBytes->len, flpFrame->buf, (size_t)flpFrame->len);
 
     UtzStandardHeader header;
     header.Version = UTZ_NLV1_PROTOCOL_VERSION;
@@ -159,7 +159,7 @@ bool TZAccessIsConn(void) {
 
 // TZAccessGetParentAddr 读取父节点的地址
 // ip地址是四字节数组.如果父节点不存在,则ip和port都为0
-void TZAccessGetParentAddr(char* ip, uint16_t* port) {
+void TZAccessGetParentAddr(uint8_t* ip, uint16_t* port) {
     if (TZAccessIsConn() == false) {
         memset(ip, 0, 4);
         *port = 0;
