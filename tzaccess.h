@@ -22,9 +22,9 @@ void TZAccessReceive(uint8_t* data, int size, uint8_t* srcIP, uint16_t srcPort);
 // TZAccessIsConn 是否连接核心网
 bool TZAccessIsConn(void);
 
-// TZAcessGetParentAddr 读取父节点的地址
+// TZAccessGetParentAddr 读取父节点的地址
 // ip地址是四字节数组.如果父节点不存在,则ip和port都为0
-void TZAcessGetParentAddr(char* ip, uint16_t* port);
+void TZAccessGetParentAddr(char* ip, uint16_t* port);
 
 // TZAccessConfigCoreParam 配置核心网参数
 void TZAccessConfigCoreParam(uint64_t ia, char* ip, uint16_t port);

@@ -189,7 +189,7 @@ static int task1(void) {
 
     PT_BEGIN(&pt);
 
-    TZAcessGetParentAddr(ip, &port);
+    TZAccessGetParentAddr(ip, &port);
     printf("conn status:%d %d.%d.%d.%d:%d\n", TZAccessIsConn(), ip[0], ip[1], ip[2], ip[3], port);
 
     PT_END(&pt);

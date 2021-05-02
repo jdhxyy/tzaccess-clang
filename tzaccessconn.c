@@ -157,9 +157,9 @@ bool TZAccessIsConn(void) {
     return Parent.IA != UTZ_IA_INVALID && Parent.IsConn;
 }
 
-// TZAcessGetParentAddr 读取父节点的地址
+// TZAccessGetParentAddr 读取父节点的地址
 // ip地址是四字节数组.如果父节点不存在,则ip和port都为0
-void TZAcessGetParentAddr(char* ip, uint16_t* port) {
+void TZAccessGetParentAddr(char* ip, uint16_t* port) {
     if (TZAccessIsConn() == false) {
         memset(ip, 0, 4);
         *port = 0;
