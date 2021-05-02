@@ -31,7 +31,7 @@ static TZListNode* createNode(void);
 
 // TZAccessStandardLayerInit ³õÊ¼»¯
 void TZAccessStandardLayerInit(TZAccessSendFunc send, TZIsAllowSendFunc isAllowSend) {
-    list = TZListCreateList(TZAccessMid);
+    list = TZListCreateList(TZAccessGetMid());
     if (list == 0) {
         LE(TZACCESS_TAG, "standard layer init failed!create list failed!");
         return;
@@ -102,7 +102,7 @@ static TZListNode* createNode(void) {
     if (node == NULL) {
         return NULL;
     }
-    node->Data = TZMalloc(TZAccessMid, sizeof(tItem));
+    node->Data = TZMalloc(TZAccessGetMid(), sizeof(tItem));
     if (node->Data == NULL) {
         TZFree(node);
         return NULL;
@@ -123,7 +123,7 @@ void TZAccessStandardLayerSend(uint8_t* data, int dataLen, UtzStandardHeader* st
     }
 
     int frameSize = UTZ_NLV1_HEAD_LEN + dataLen;
-    uint8_t* frame = TZMalloc(TZAccessMid, frameSize);
+    uint8_t* frame = TZMalloc(TZAccessGetMid(), frameSize);
     if (frame == NULL) {
         LE(TZACCESS_TAG, "standard layer send failed!malloc failed!");
         return;

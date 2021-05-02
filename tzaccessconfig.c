@@ -11,7 +11,7 @@
 #include <string.h>
 
 // 内存id
-int TZAccessMid = -1;
+static int mid = -1;
 
 // 父节点信息
 ParentInfo Parent;
@@ -25,6 +25,17 @@ static uint64_t coreIA = TZACCESS_CORE_IA;
 static uint8_t coreIP[4] = TZACCESS_CORE_IP;
 static uint16_t corePort = TZACCESS_CORE_PORT;
 
+// TZAccessGetMid 读取内存id
+int TZAccessGetMid(void) {
+    if (mid == -1) {
+        mid = TZMallocRegister(0, TZACCESS_TAG, TZACEESS_MALLOC_SIZE);
+        if (mid == -1) {
+            LE(TZACCESS_TAG, "malloc register failed!");
+        }
+    }
+    return mid;
+}
+
 // TZAccessSetLocalIA 设置本地IA地址
 void TZAccessSetLocalIA(uint64_t ia) {
     localIA = ia;
@@ -37,7 +48,7 @@ uint64_t TZAccessGetLocalIA(void) {
 
 // TZIotSetLocalPwd 设置密码
 void TZAccessSetLocalPwd(char* pwd) {
-    localPwd = TZMalloc(TZAccessMid, (int)strlen(pwd) + 1);
+    localPwd = TZMalloc(TZAccessGetMid(), (int)strlen(pwd) + 1);
     if (localPwd == NULL) {
         LE(TZACCESS_TAG, "set local pwd failed!");
         return;

@@ -127,7 +127,7 @@ static void sendConnFrame(void) {
     }
 
     int payloadSize = securityHeaderBytes->len + flpFrame->len;
-    payload = TZMalloc(TZAccessMid, payloadSize);
+    payload = TZMalloc(TZAccessGetMid(), payloadSize);
     if (payload == NULL) {
         LE(TZACCESS_TAG, "send conn frame failed!malloc failed!");
         goto EXIT;
@@ -155,4 +155,16 @@ EXIT:
 // TZAccessIsConn 是否连接核心网
 bool TZAccessIsConn(void) {
     return Parent.IA != UTZ_IA_INVALID && Parent.IsConn;
+}
+
+// TZAcessGetParentAddr 读取父节点的地址
+// ip地址是四字节数组.如果父节点不存在,则ip和port都为0
+void TZAcessGetParentAddr(char* ip, uint16_t* port) {
+    if (TZAccessIsConn() == false) {
+        memset(ip, 0, 4);
+        *port = 0;
+    } else {
+        memcpy(ip, Parent.IP, 4);
+        *port = Parent.Port;
+    }
 }

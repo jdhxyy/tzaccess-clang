@@ -115,7 +115,7 @@ static void sendApplyFrame(void) {
     }
 
     int payloadSize = securityHeaderBytes->len + flpFrame->len;
-    payload = TZMalloc(TZAccessMid, payloadSize);
+    payload = TZMalloc(TZAccessGetMid(), payloadSize);
     if (payload == NULL) {
         LE(TZACCESS_TAG, "send apply frame failed!malloc failed!");
         goto EXIT;

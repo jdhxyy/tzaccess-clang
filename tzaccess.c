@@ -11,8 +11,7 @@
 
 // TZAccessLoad 模块载入
 // mid是内存ID.ia是本节点IA地址,pwd是本节点密码
-void TZAccessLoad(int mid, uint64_t ia, char* pwd, TZAccessSendFunc send, TZIsAllowSendFunc isAllowSend) {
-    TZAccessMid = mid;
+void TZAccessLoad(uint64_t ia, char* pwd, TZAccessSendFunc send, TZIsAllowSendFunc isAllowSend) {
     TZAccessSetLocalIA(ia);
     TZAccessSetLocalPwd(pwd);
 

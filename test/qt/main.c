@@ -82,8 +82,8 @@ int main(void)
     TZMallocLoad(RAM_INTERNAL, 20, 100 * 1024, malloc(100 * 1024));
 
     gMid = TZMallocRegister(RAM_INTERNAL, "tziot", 4096);
-    AsyncLoad(gMid);
-    TZAccessLoad(gMid, 0x2141000000010010, "123", accessSend, isAllowSend);
+
+    TZAccessLoad(0x2141000000010010, "123", accessSend, isAllowSend);
 
     //≥ı ºªØwsa
     WORD sockVision = MAKEWORD(2,2);
@@ -184,10 +184,13 @@ static void accessSend(uint8_t* data, int size, uint8_t* dstIP, uint16_t dstPort
 
 static int task1(void) {
     static struct pt pt;
+    uint8_t ip[4] = {0};
+    uint16_t port = 0;
 
     PT_BEGIN(&pt);
 
-    printf("conn status:%d\n", TZAccessIsConn());
+    TZAcessGetParentAddr(ip, &port);
+    printf("conn status:%d %d.%d.%d.%d:%d\n", TZAccessIsConn(), ip[0], ip[1], ip[2], ip[3], port);
 
     PT_END(&pt);
 }

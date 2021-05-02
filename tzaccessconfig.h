@@ -10,6 +10,9 @@
 
 #define TZACCESS_TAG "tzaccess"
 
+// 所需内存大小
+#define TZACEESS_MALLOC_SIZE 4096
+
 // 最大帧字节数
 #define TZACCESS_FRAME_MAX_LEN 512
 
@@ -42,8 +45,8 @@ typedef struct {
 
 extern ParentInfo Parent;
 
-// 内存id
-extern int TZAccessMid;
+// TZAccessGetMid 读取内存id
+int TZAccessGetMid(void);
 
 // TZAccessSetLocalIA 设置本地IA地址
 void TZAccessSetLocalIA(uint64_t ia);
