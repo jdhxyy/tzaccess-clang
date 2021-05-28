@@ -97,6 +97,8 @@ static void sendApplyFrame(void) {
     TZBufferDynamic* securityHeaderBytes = NULL;
     TZBufferDynamic* flpFrame = NULL;
     uint8_t* payload = NULL;
+    uint8_t body[9] = {0};
+    int payloadSize = 0;
 
     securityHeaderBytes = UtzSimpleSecurityHeaderDataToBytes(UTZ_HEADER_CMP, TZAccessGetLocalPwd());
     if (securityHeaderBytes == NULL) {
@@ -104,7 +106,6 @@ static void sendApplyFrame(void) {
         goto EXIT;
     }
 
-    uint8_t body[9] = {0};
     body[0] = UTZ_CMP_MSG_TYPE_REQUEST_SLAVE_ROUTER;
     UtzIAToBytes(Parent.IA, body + 1);
 
@@ -114,7 +115,7 @@ static void sendApplyFrame(void) {
         goto EXIT;
     }
 
-    int payloadSize = securityHeaderBytes->len + flpFrame->len;
+    payloadSize = securityHeaderBytes->len + flpFrame->len;
     payload = TZMalloc(TZAccessGetMid(), payloadSize);
     if (payload == NULL) {
         LE(TZACCESS_TAG, "send apply frame failed!malloc failed!");

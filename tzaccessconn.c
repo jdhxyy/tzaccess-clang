@@ -103,15 +103,16 @@ static void sendConnFrame(void) {
     TZBufferDynamic* securityHeaderBytes = NULL;
     TZBufferDynamic* flpFrame = NULL;
     uint8_t* payload = NULL;
-
+    uint8_t body[TZ_BUFFER_TINY_LEN] = {0};
+    int j = 0;
+    int payloadSize = 0;
+    
     securityHeaderBytes = UtzSimpleSecurityHeaderDataToBytes(UTZ_HEADER_CMP, TZAccessGetLocalPwd());
     if (securityHeaderBytes == NULL) {
         LE(TZACCESS_TAG, "send conn frame failed!simple security header to bytes failed!");
         goto EXIT;
     }
 
-    uint8_t body[TZ_BUFFER_TINY_LEN] = {0};
-    int j = 0;
     body[j++] = UTZ_CMP_MSG_TYPE_CONNECT_PARENT_ROUTER;
     // Ç°×º³¤¶È
     body[j++] = 64;
@@ -126,7 +127,7 @@ static void sendConnFrame(void) {
         goto EXIT;
     }
 
-    int payloadSize = securityHeaderBytes->len + flpFrame->len;
+    payloadSize = securityHeaderBytes->len + flpFrame->len;
     payload = TZMalloc(TZAccessGetMid(), payloadSize);
     if (payload == NULL) {
         LE(TZACCESS_TAG, "send conn frame failed!malloc failed!");
